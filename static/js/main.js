@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overallScore.textContent = `总分：${data.overall_score}`;
         summary.textContent = data.总结;
 
-        // 准备雷达图数据
+        // 准备图表数据
         const dimensions = [];
         const values = [];
         try {
@@ -75,21 +75,45 @@ document.addEventListener('DOMContentLoaded', function() {
         // 配置雷达图
         const radarOption = {
             title: {
-                text: '维度评分雷达图'
+                text: '维度评分雷达图',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
             },
-            tooltip: {},
+            tooltip: {
+                trigger: 'item'
+            },
             radar: {
                 indicator: dimensions.map(dim => ({
                     name: dim,
                     max: 30
-                }))
+                })),
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)']
+                    }
+                }
             },
             series: [{
                 type: 'radar',
                 data: [{
                     value: values,
-                    name: '评分'
-                }]
+                    name: '评分',
+                    areaStyle: {
+                        color: 'rgba(65,105,225,0.4)'
+                    },
+                    lineStyle: {
+                        width: 2
+                    }
+                }],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0,0,0,0.3)'
+                    }
+                }
             }]
         };
         radarChart.setOption(radarOption);
@@ -97,9 +121,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // 配置柱状图
         const barOption = {
             title: {
-                text: '维度评分柱状图'
+                text: '维度评分柱状图',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
             },
-            tooltip: {},
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
             xAxis: {
                 data: dimensions,
                 axisLabel: {
@@ -107,13 +140,89 @@ document.addEventListener('DOMContentLoaded', function() {
                     rotate: 45
                 }
             },
-            yAxis: {},
+            yAxis: {
+                name: '得分'
+            },
             series: [{
                 type: 'bar',
-                data: values
+                data: values.map(value => ({
+                    value: value,
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {offset: 0, color: '#83bff6'},
+                            {offset: 0.5, color: '#188df0'},
+                            {offset: 1, color: '#188df0'}
+                        ])
+                    }
+                })),
+                emphasis: {
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {offset: 0, color: '#2378f7'},
+                            {offset: 0.7, color: '#2378f7'},
+                            {offset: 1, color: '#83bff6'}
+                        ])
+                    }
+                },
+                barWidth: '40%',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(220, 220, 220, 0.8)'
+                }
             }]
         };
         barChart.setOption(barOption);
+
+        // 配置饼图
+        const pieChart = echarts.init(document.getElementById('pieChart'));
+        const pieOption = {
+            title: {
+                text: '维度得分占比',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                right: 10,
+                top: 'center'
+            },
+            series: [{
+                name: '得分占比',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: true,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '20',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: dimensions.map((dim, index) => ({
+                    value: values[index],
+                    name: dim
+                }))
+            }]
+        };
+        pieChart.setOption(pieOption);
 
         // 生成详细评分表格
         let tableHTML = '<table class="table table-bordered"><thead><tr><th>维度</th><th>子项</th><th>得分</th><th>描述</th></tr></thead><tbody>';
@@ -141,5 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         radarChart.resize();
         barChart.resize();
+        pieChart.resize();
     });
 });
