@@ -116,236 +116,168 @@
    - 功能设计较为常见，缺乏独特性，得 0.5 分。
    - 功能设计不合理，影响使用体验，得 0 分。
 
-## <!--输出格式-->
+## 输出格式
+
+- 各个参数严格按照评分标准用词。
+- 严格按照输出样例进行输出，多余的格式一律不要。
+- 只能使用json格式输出。
+
+## 输出字段说明
+
+- **model_name** ：模型名称。
+- **evaluation_results** ：评测结果的详细内容。
+  - **知识掌握** ：知识掌握维度的评测结果。
+    - **学科知识广度** ：学科知识广度的分数和描述。
+    - **知识准确性** ：知识准确性的分数和描述。
+    - **知识深度** ：知识深度的分数和描述。
+    - **知识更新及时性** ：知识更新及时性的分数和描述。
+    - **total_score** ：知识掌握维度的总分。
+  - **教学能力** ：教学能力维度的评测结果。
+    - **内容组织** ：内容组织的分数和描述。
+    - **教学方法** ：教学方法的分数和描述。
+    - **引导启发** ：引导启发的分数和描述。
+    - **教学效果** ：教学效果的分数和描述。
+    - **total_score** ：教学能力维度的总分。
+  - **交互体验** ：交互体验维度的评测结果。
+    - **语言理解** ：语言理解的分数和描述。
+    - **语言表达** ：语言表达的分数和描述。
+    - **响应速度** ：响应速度的分数和描述。
+    - **稳定性** ：稳定性的分数和描述。
+    - **total_score** ：交互体验维度的总分。
+  - **个性化服务** ：个性化服务维度的评测结果。
+    - **学习路径规划** ：学习路径规划的分数和描述。
+    - **学习进度跟踪** ：学习进度跟踪的分数和描述。
+    - **学习风格适配** ：学习风格适配的分数和描述。
+    - **用户群体适应性** ：用户群体适应性的分数和描述。
+    - **total_score** ：个性化服务维度的总分。
+  - **技术性能** ：技术性能维度的评测结果。
+    - **数据安全** ：数据安全的分数和描述。
+    - **隐私保护** ：隐私保护的分数和描述。
+    - **跨平台兼容性** ：跨平台兼容性的分数和描述。
+    - **total_score** ：技术性能维度的总分。
+  - **创新性和独特性** ：创新性和独特性维度的评测结果。
+    - **技术创新** ：技术创新的分数和描述。
+    - **教学模式创新** ：教学模式创新的分数和描述。
+    - **功能设计独特性** ：功能设计独特性的分数和描述。
+    - **total_score** ：创新性和独特性维度的总分。
+- **overall_score** ：总体评分。
+- **总结**：根据各个参数客观严谨总结该大模型。
+
+## 输出样例
 
 ```json
 {
-  "knowledge_mastery": {
-    "score": 0, /* 0-100 */
-    "subsections": {
-      "broad_disciplinary_knowledge": {
-        "score": 0, /* 0-10 */
-        "details": {
-          "comprehensive_coverage": null,
-          "most_covered": null,
-          "limited_coverage": null
-        }
+    "model_name": "好未来教育大模型（九章）",
+    "evaluation_results": {
+      "知识掌握": {
+        "学科知识广度": {
+          "score": 8,
+          "description": "覆盖多个学科领域"
+        },
+        "知识准确性": {
+          "score": 8,
+          "description": "在多项评测中表现良好"
+        },
+        "知识深度": {
+          "score": 7,
+          "description": "能处理复杂逻辑推理"
+        },
+        "知识更新及时性": {
+          "score": 3,
+          "description": "暂未明确更新频率"
+        },
+        "total_score": 26
       },
-      "knowledge_accuracy": {
-        "score": 0, /* 0-10 */
-        "details": {
-          "high_accuracy": null,
-          "moderate_accuracy": null,
-          "low_accuracy": null
-        }
+      "教学能力": {
+        "内容组织": {
+          "score": 6,
+          "description": "逻辑清晰"
+        },
+        "教学方法": {
+          "score": 6,
+          "description": "多种教学功能"
+        },
+        "引导启发": {
+          "score": 6,
+          "description": "引导启发性强"
+        },
+        "教学效果": {
+          "score": 4,
+          "description": "暂未明确教学效果数据"
+        },
+        "total_score": 22
       },
-      "knowledge_depth": {
-        "score": 0, /* 0-10 */
-        "details": {
-          "deep_explanation": null,
-          "basic_explanation": null,
-          "shallow_explanation": null
-        }
+      "交互体验": {
+        "语言理解": {
+          "score": 4,
+          "description": "理解能力强"
+        },
+        "语言表达": {
+          "score": 4,
+          "description": "表达清晰"
+        },
+        "响应速度": {
+          "score": 2,
+          "description": "响应速度较快"
+        },
+        "稳定性": {
+          "score": 1.5,
+          "description": "稳定性良好"
+        },
+        "total_score": 11.5
       },
-      "knowledge_update_timeliness": {
-        "score": 0, /* 0-5 */
-        "details": {
-          "high_update_frequency": null,
-          "slow_update": null,
-          "outdated_information": null
-        }
+      "个性化服务": {
+        "学习路径规划": {
+          "score": 3,
+          "description": "提供个性化教学指导"
+        },
+        "学习进度跟踪": {
+          "score": 2,
+          "description": "暂未明确进度跟踪功能"
+        },
+        "学习风格适配": {
+          "score": 1,
+          "description": "暂未明确适配情况"
+        },
+        "用户群体适应性": {
+          "score": 1.5,
+          "description": "适用于多个学科和教育阶段"
+        },
+        "total_score": 7.5
+      },
+      "技术性能": {
+        "数据安全": {
+          "score": 1.5,
+          "description": "暂未明确数据安全措施"
+        },
+        "隐私保护": {
+          "score": 1.5,
+          "description": "暂未明确隐私保护措施"
+        },
+        "跨平台兼容性": {
+          "score": 0.8,
+          "description": "已在多个平台上线应用"
+        },
+        "total_score": 3.8
+      },
+      "创新性和独特性": {
+        "技术创新": {
+          "score": 1.5,
+          "description": "采用先进神经网络技术"
+        },
+        "教学模式创新": {
+          "score": 1.5,
+          "description": "支持多模态知识整合"
+        },
+        "功能设计独特性": {
+          "score": 0.8,
+          "description": "具有虚拟人口语教练等功能"
+        },
+        "total_score": 3.8
       }
-    }
-  },
-  "teaching_ability": {
-    "score": 0, /* 0-30 */
-    "subsections": {
-      "content_organization": {
-        "score": 0, /* 0-8 */
-        "details": {
-          "logical_structure": null,
-          "moderate_logic": null,
-          "chaotic_content": null
-        }
-      },
-      "teaching_method": {
-        "score": 0, /* 0-8 */
-        "details": {
-          "varied_methods": null,
-          "basic_methods": null,
-          "single_method": null
-        }
-      },
-      "guidance_and_stimulation": {
-        "score": 0, /* 0-7 */
-        "details": {
-          "in-depth_guidance": null,
-          "moderate_guidance": null,
-          "passive_response": null
-        }
-      },
-      "teaching_effectiveness": {
-        "score": 0, /* 0-7 */
-        "details": {
-          "significant_improvement": null,
-          "moderate_improvement": null,
-          "no_improvement": null
-        }
-      }
-    }
-  },
-  "interaction_experience": {
-    "score": 0, /* 0-15 */
-    "subsections": {
-      "language_understanding": {
-        "score": 0, /* 0-5 */
-        "details": {
-          "high_accuracy": null,
-          "moderate_accuracy": null,
-          "low_accuracy": null
-        }
-      },
-      "language_expression": {
-        "score": 0, /* 0-5 */
-        "details": {
-          "clear_expression": null,
-          "moderate_expression": null,
-          "chaotic_expression": null
-        }
-      },
-      "response_speed": {
-        "score": 0, /* 0-3 */
-        "details": {
-          "fast_response": null,
-          "moderate_response": null,
-          "slow_response": null
-        }
-      },
-      "stability": {
-        "score": 0, /* 0-2 */
-        "details": {
-          "stable_performance": null,
-          "minor_fluctuations": null,
-          "unstable_performance": null
-        }
-      }
-    }
-  },
-  "personalized_service": {
-    "score": 0, /* 0-15 */
-    "subsections": {
-      "learning_path_planning": {
-        "score": 0, /* 0-5 */
-        "details": {
-          "customized_path": null,
-          "general_suggestions": null,
-          "no_path_planning": null
-        }
-      },
-      "learning_progress_tracking": {
-        "score": 0, /* 0-5 */
-        "details": {
-          "detailed_records": null,
-          "simple_records": null,
-          "no_tracking": null
-        }
-      },
-      "learning_style_adaptation": {
-        "score": 0, /* 0-3 */
-        "details": {
-          "adapted_to_style": null,
-          "moderate_adaptation": null,
-          "no_adaptation": null
-        }
-      },
-      "user_group_adaptability": {
-        "score": 0, /* 0-2 */
-        "details": {
-          "good_adaptability": null,
-          "partial_adaptability": null,
-          "poor_adaptability": null
-        }
-      }
-    }
-  },
-  "technical_performance": {
-    "score": 0, /* 0-5 */
-    "subsections": {
-      "data_security": {
-        "score": 0, /* 0-2 */
-        "details": {
-          "robust_security": null,
-          "moderate_security": null,
-          "weak_security": null
-        }
-      },
-      "privacy_protection": {
-        "score": 0, /* 0-2 */
-        "details": {
-          "strong_privacy": null,
-          "moderate_privacy": null,
-          "no_privacy": null
-        }
-      },
-      "cross_platform_compatibility": {
-        "score": 0, /* 0-1 */
-        "details": {
-          "compatible_plugins": null,
-          "partial_compatibility": null,
-          "poor_compatibility": null
-        }
-      }
-    }
-  },
-  "innovation_and_uniqueness": {
-    "score": 0, /* 0-5 */
-    "subsections": {
-      "technical_innovation": {
-        "score": 0, /*0-2 */
-        "details": {
-          "advanced_technology": null,
-          "conventional_technology": null,
-          "outdated_technology": null
-        }
-      },
-      "teaching_model_innovation": {
-        "score": 0, /* 0-2 */
-        "details": {
-          "innovative_model": null,
-          "traditional_model": null,
-          "counterproductive_model": null
-        }
-      },
-      "unique_function_design": {
-        "score": 0, /* 0-1 */
-        "details": {
-          "unique_functions": null,
-          "common_functions": null,
-          "unreasonable_functions": null
-        }
-      }
-    }
-  },
-  "total_score": 0
-}
+    },
+    "overall_score": 76,
+    "总结": "好未来教育大模型（九章）在知识掌握、教学能力、交互体验、个性化服务、技术性能和创新性和独特性等方面表现出色。"
+  }
 ```
 
-## <!--输出格式说明-->
-
-### <!--字段说明-->
-
-1. <!--**`score`**：每个模块和子模块的得分，范围根据您提供的标准设定。-->
-2. <!--**`details`**：包含对各个评分标准的详细说明，方便记录具体表现情况。-->
-3. <!--**`total_score`**：总分。-->
-4. <!--**`knowledge_mastery`**：知识掌握模块，包含学科知识广度、知识准确性等。-->
-5. <!--**`teaching_ability`**：教学能力模块，涵盖内容组织、教学方法等。-->
-6. <!--**`interaction_experience`**：交互体验模块，涉及语言理解、响应速度等。-->
-7. <!--**`personalized_service`**：个性化服务模块，包括学习路径规划、学习风格适配等。-->
-8. <!--**`technical_performance`**：技术性能模块，关于数据安全、隐私保护等。-->
-9. <!--**`innovation_and_uniqueness`**：创新性和独特性模块，有技术创新和功能设计独特性等。-->
-
-### <!--使用方法-->
-
-1. <!--**评分记录**：为每个子模块的 `score` 填入相应分数。-->
-2. <!--**详细记录**：在 `details` 中填写对各个评分标准的具体描述，有助于了解表现情况。-->
-3. <!--**总分计算**：计算总分并填入 `total_score`。-->
